@@ -1,0 +1,100 @@
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+class BinaryTree:
+    maxvalue = float("-inf")
+    found = False
+    foundval = 0
+
+    def Inorder(self,node):
+        if node is None:
+            return
+        self.Inorder(node.left)
+        print(node.value, end = " ")
+        self.Inorder(node.right)
+    
+    def Preorder(self,node):
+        if node is None:
+            return
+        print(node.value, end = " ")
+        self.Preorder(node.left)
+        self.Preorder(node.right)
+
+    def Postorder(self,node):
+        if node is None:
+            return
+        self.Postorder(node.left)
+        self.Postorder(node.right)
+        print(node.value , end = " ")
+
+    def maximum(self, node):
+        if node is None:
+            return
+        data = node.value
+        if data > self.maxvalue:
+            self.maxvalue = data
+        self.maximum(node.left)
+        self.maximum(node.right)
+
+    def search(self, node, target):
+        if node is None:
+            return
+        if node.value == target:
+            self.found = True
+            self.foundval = node 
+        self.search(node.left, target)
+        self.search(node.right, target)
+
+
+        
+
+    def create(self):
+        root = TreeNode(31)
+        Node65 = TreeNode(65)
+        Node91 = TreeNode(91)
+        Node3 = TreeNode(3)
+        Node45 = TreeNode(45) 
+        Node8 = TreeNode(8)
+        Node9 = TreeNode(9)
+        Node23 = TreeNode(23)
+        Node56 = TreeNode(56)
+
+        root.left = Node65
+        root.right = Node91
+        Node65.left = Node3
+        Node65.right = Node45
+        Node91.left = Node8
+        Node91.right = Node9
+        Node9.left = Node56
+        Node45.right = Node23
+
+        print("Inorder Traversal: ", end =" ")
+        self.Inorder(root)
+        print()
+        print("Preorder Traversal: " , end = " ")
+        self.Preorder(root)
+        print()
+        print("Postorder Traversal: " , end = " ")
+        self.Postorder(root)
+        print()
+
+        self.maximum(root)
+        print("Maximum value in Binary Tree: ", self.maxvalue)
+
+        target = int(input("Enter Element to Search: "))
+        self.search(root, target)
+        if self.found == True:
+            print("Element found at : " , self.foundval)
+        else:
+            print("Element not found!")
+        
+        
+
+
+
+res = BinaryTree()
+res.create()        
+

@@ -1,0 +1,92 @@
+class Treenode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right  = None
+
+maxvalue = float("-inf")
+found = False
+foundloc = 0       
+
+def Inorder(node):
+    if node is None:
+        return
+    Inorder(node.left)
+    print(node.value , end = " ")
+    Inorder(node.right)
+
+
+def maximum(node):
+    global maxvalue
+    if node is None:
+        return
+    if node.value > maxvalue:
+        maxvalue = node.value
+    maximum(node.left)
+    maximum(node.right)
+
+def search(node, target):
+    global found, foundloc
+    if node is None:
+        return
+    if node.value == target:
+        found = True
+        foundloc = node
+    search(node.left, target)
+    search(node.right, target)
+
+def insert(node, Target):
+    if node is None:
+        newnode = Treenode(Target)
+        return newnode
+    if Target > node.value:
+        node.right = insert(node.right, Target)
+    else:
+        node.left = insert(node.left, Target) 
+    return node   
+    
+
+root   = Treenode(50)
+Node28 = Treenode(28)
+Node79 = Treenode(79)
+Node12 = Treenode(12)
+Node5  = Treenode(5)
+Node15 = Treenode(15)
+Node36 = Treenode(36)
+Node45 = Treenode(45)
+Node63 = Treenode(63)
+Node80 = Treenode(80)
+Node85 = Treenode(85)
+Node93 = Treenode(93)
+
+root.left = Node28
+root.right = Node79
+Node28.left = Node12
+Node28.right = Node36
+Node12.left = Node5
+Node12.right = Node15
+Node36.right = Node45
+Node79.left = Node63
+Node79.right = Node85
+Node85.left = Node80
+Node85.right = Node93
+
+print("Inorder Traversal: ",end = " ")
+Inorder(root)
+print()
+
+maximum(root)
+print("Maximum value in Binary Search Tree: " , maxvalue)
+
+target = int(input("Enter Element to searh in Binary Search Tree: "))
+search(root,target)
+if found:
+    print("Element found at: ", foundloc)
+else:
+    print("Element not found")
+
+Target = int(input("Enter Element to Insert into Binary Search Tree: "))
+insert(root,Target)
+print("New Node Inserted")
+print()
+Inorder(root)
